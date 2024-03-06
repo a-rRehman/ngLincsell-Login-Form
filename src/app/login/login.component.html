@@ -1,15 +1,33 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
-  <div fxFlex="100%" fxFlex.xs="100%">
-    <div class="login-container">
+<div class="grid flex">
+  <div class="col-12 md:col-6">
+    <div
+      class="login-container flex flex-column justify-content-center align-items-center"
+    >
       <h2>Login</h2>
+
       <form [formGroup]="myLoginform" (ngSubmit)="onFormSubmit()">
         <div class="p-field">
           <label for="username">UserName</label>
-          <input type="text" id="username" formControlName="username" />
+          <input type="text" id="username" formControlName="Username" />
+        </div>
+        <div
+          *ngIf="
+            !myLoginform.get('Username')?.valid &&
+            myLoginform.get('Username')?.touched
+          "
+          class="p-error"
+        >
+          <div *ngIf="myLoginform.get('Username')?.errors?.['required']">
+            Username is required.
+          </div>
+
+          <div *ngIf="myLoginform.get('Username')?.errors?.['minlength']">
+            Minium 3 char
+          </div>
         </div>
         <div class="p-field">
           <label for="password">Password</label>
-          <input type="password" id="password" formControlName="password" />
+          <input type="password" id="password" formControlName="Password" />
         </div>
         <button
           type="submit"
@@ -20,4 +38,13 @@
       </form>
     </div>
   </div>
+
+  <div class="hidden md:block col-12 md:col-6">
+    <div class="login-container-2"></div>
+  </div>
 </div>
+
+<span class="p-input-icon-right">
+  <i class="pi pi-eye"></i>
+  <input type="text" pInputText />
+</span>
