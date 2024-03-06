@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,18 +11,17 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  myLoginform!: FormGroup;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+    this.myLoginform = new FormGroup({
+      username: new FormControl(null),
+      password: new FormControl(null),
     });
   }
-  login() {
-    if (this.loginForm.valid) {
-      console.log('Login form submitted:', this.loginForm.value);
-    }
+
+  onFormSubmit() {
+    console.log(this.myLoginform);
   }
 }

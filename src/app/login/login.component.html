@@ -2,43 +2,22 @@
   <div fxFlex="100%" fxFlex.xs="100%">
     <div class="login-container">
       <h2>Login</h2>
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form [formGroup]="myLoginform" (ngSubmit)="onFormSubmit()">
         <div class="p-field">
-          <label for="username">Username</label>
-          <input id="username" type="text" formControlName="username" />
+          <label for="username">UserName</label>
+          <input type="text" id="username" formControlName="username" />
         </div>
         <div class="p-field">
           <label for="password">Password</label>
-          <input id="password" type="password" formControlName="password" />
+          <input type="password" id="password" formControlName="password" />
         </div>
         <button
           type="submit"
           pButton
-          label="Login"
           class="p-button-raised"
+          label="login"
         ></button>
       </form>
     </div>
   </div>
 </div>
-
-<!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
-  <div fxFlex="40%" fxFlex.xs="100%">
-    <p-card>
-      <ng-template pTemplate="title"> Card 1 Title </ng-template>
-      <ng-template pTemplate="content">
-        <p>This is the content of card 1.</p>
-        <button pButton type="button" label="Button 1"></button>
-      </ng-template>
-    </p-card>
-  </div>
-  <div fxFlex="40%" fxFlex.xs="100%">
-    <p-card>
-      <ng-template pTemplate="title"> Card 2 Title </ng-template>
-      <ng-template pTemplate="content">
-        <p>This is the content of card 2.</p>
-        <button pButton type="button" label="Button 2"></button>
-      </ng-template>
-    </p-card>
-  </div>
-</div> -->
