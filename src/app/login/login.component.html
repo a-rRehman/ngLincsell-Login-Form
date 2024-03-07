@@ -3,44 +3,85 @@
     <div
       class="login-container flex flex-column justify-content-center align-items-center"
     >
-      <h2>Login</h2>
-      <img src="../../assets/a.png" alt="" />
-      <form [formGroup]="myLoginform" (ngSubmit)="onFormSubmit()">
-        <div class="p-field">
-          <label for="username">UserName</label>
-          <input
-            pInputText
-            type="text"
-            id="username"
-            formControlName="Username"
-          />
-        </div>
-        <div
-          *ngIf="
-            !myLoginform.get('Username')?.valid &&
-            myLoginform.get('Username')?.touched
-          "
-          class="p-error"
-        >
-          <div *ngIf="myLoginform.get('Username')?.errors?.['required']">
-            Username is required.
+      <img src="../../assets/Logo-SVGOOO.svg" alt="" />
+      <div
+        class="mt-5 py-6 px-5 border-solid border-1 border-200 border-round-2xl flex flex-column justify-content-center align-items-center"
+      >
+        <h2>Login</h2>
+        <p>Enter your credentials to access your LincSell account</p>
+        <form [formGroup]="myLoginform" (ngSubmit)="onFormSubmit()">
+          <div class="p-field">
+            <span class="p-input-icon-left">
+              <i class="pi" style="color: #fa4b1b"
+                ><img src="../../assets/envelope.svg" alt="" srcset=""
+              /></i>
+
+              <input
+                class="p-inputtext-lg border-round-xl"
+                placeholder="Email/Username"
+                type="Username"
+                pInputText
+                id="Username"
+                formControlName="Username"
+            /></span>
+          </div>
+          <div
+            *ngIf="
+              !myLoginform.get('Username')?.valid &&
+              myLoginform.get('Username')?.touched
+            "
+            class="p-error"
+          >
+            <div *ngIf="myLoginform.get('Username')?.errors?.['required']">
+              Username is required.
+            </div>
+
+            <div *ngIf="myLoginform.get('Username')?.errors?.['minlength']">
+              Minium 3 char
+            </div>
+          </div>
+          <div class="p-field mt-3">
+            <span class="p-input-icon-right p-input-icon-left">
+              <i class="pi" style="color: #fa4b1b"
+                ><img src="../../assets/eO.svg" alt="" srcset="" />
+              </i>
+              <input
+                class="p-inputtext-lg border-round-xl"
+                placeholder="Password"
+                type="{{ passwordToggle ? 'text' : 'password' }}"
+                pInputText
+                id="password"
+                formControlName="Password"
+              />
+              <i
+                class="pi"
+                style="font-size: 1.3rem; color: #a9a9a9"
+                (click)="togglePassword()"
+                [ngClass]="{
+                  'pi-eye': !passwordToggle,
+                  'pi-eye-slash': passwordToggle
+                }"
+              ></i>
+            </span>
           </div>
 
-          <div *ngIf="myLoginform.get('Username')?.errors?.['minlength']">
-            Minium 3 char
+          <p-button
+            styleClass="w-full mt-3 background-color:#1429EF"
+            type="submit"
+            label="login"
+            [rounded]="true"
+          ></p-button>
+          <div class="flex flex-row justify-content-between align-items-center">
+            <p-checkbox
+              [(ngModel)]="isChecked"
+              [binary]="true"
+              label="Remember Me"
+            ></p-checkbox>
+
+            <p>Forget Password?</p>
           </div>
-        </div>
-        <div class="p-field">
-          <label for="password">Password</label>
-          <input type="password" id="password" formControlName="Password" />
-        </div>
-        <button
-          type="submit"
-          pButton
-          class="p-button-raised"
-          label="login"
-        ></button>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 

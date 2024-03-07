@@ -4,16 +4,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../service/authentication.service';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SharedModule, ReactiveFormsModule],
+  imports: [
+    SharedModule,
+    ReactiveFormsModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    InputTextModule,
+    CheckboxModule,
+    FormsModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
+  isChecked: boolean = false;
   myLoginform!: FormGroup;
+  constructor(
+    private authService: AuthenticationService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.myLoginform = new FormGroup({
@@ -24,12 +42,10 @@ export class LoginComponent implements OnInit {
       Password: new FormControl('', Validators.required),
     });
   }
-
-  constructor(
-    private authService: AuthenticationService,
-    private http: HttpClient
-  ) {}
-
+  passwordToggle: boolean = false;
+  togglePassword() {
+    this.passwordToggle = !this.passwordToggle;
+  }
   onFormSubmit() {
     if (this.myLoginform.valid) {
       const formData = this.myLoginform.value;
