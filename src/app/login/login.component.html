@@ -8,7 +8,12 @@
       <form [formGroup]="myLoginform" (ngSubmit)="onFormSubmit()">
         <div class="p-field">
           <label for="username">UserName</label>
-          <input type="text" id="username" formControlName="Username" />
+          <input
+            pInputText
+            type="text"
+            id="username"
+            formControlName="Username"
+          />
         </div>
         <div
           *ngIf="
