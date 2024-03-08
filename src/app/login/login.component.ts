@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
+  LoginSuccess: boolean = false;
   isChecked: boolean = false;
   myLoginform!: FormGroup;
   constructor(
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
         Validators.minLength(3),
       ]),
       Password: new FormControl('', Validators.required),
+      rememberMe: new FormControl(false),
     });
   }
   passwordToggle: boolean = false;
@@ -53,6 +55,12 @@ export class LoginComponent implements OnInit {
         (response) => {
           // Success Handling
           console.log('Login successful:', response);
+          console.log('Login successful:', response.success);
+          if (response.data.error) {
+            this.LoginSuccess = true;
+          } else {
+            this.LoginSuccess = false;
+          }
         },
         (error) => {
           // Error Handling

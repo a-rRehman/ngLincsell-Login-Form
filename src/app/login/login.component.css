@@ -9,3 +9,20 @@
 .p-input-icon-right > .p-inputtext {
   padding-right: 1rem;
 }
+
+.p-error-container {
+  height: 28px; /* Adjust height as needed */
+  overflow: hidden;
+}
+
+.p-error-message {
+  padding-top: 5px;
+}
+
+.p-error-message p {
+  margin: 0;
+}
+
+.p-error-message i {
+  /* margin-right: 10px; */
+}
