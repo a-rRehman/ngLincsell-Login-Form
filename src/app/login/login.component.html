@@ -1,11 +1,13 @@
-<div class="grid flex">
-  <div class="col-12 md:col-6">
+<div class="grid flex main-login-container">
+  <div
+    class="p-0 m-0 col-12 md:col-6 flex flex-column justify-content-center align-items-center"
+  >
     <div
       class="login-container flex flex-column justify-content-center align-items-center"
     >
       <img src="../../assets/Logo-SVGOOO.svg" alt="" />
       <div
-        class="mt-5 py-6 px-5 border-solid border-1 border-200 border-round-2xl flex flex-column justify-content-center align-items-center"
+        class="md:mt-5 mt-3 ml-2 md:ml-0 md:mr-0 mr-2 md:py-6 py-3 px-3 p md:px-5 border-solid border-1 border-200 border-round-2xl flex flex-column justify-content-center align-items-center"
       >
         <h2 class="p-0 m-0">Login</h2>
         <p class="p-0 m-0 pt-2 pb-5">
@@ -50,10 +52,6 @@
                   This Field is required.
                 </p>
               </div>
-
-              <div *ngIf="myLoginform.get('Username')?.errors?.['minlength']">
-                Minium 3 char
-              </div>
             </div>
           </div>
           <div class="p-field mt-3">
@@ -81,8 +79,34 @@
             </span>
           </div>
 
+          <div class="p-error-container">
+            <div
+              *ngIf="
+                !myLoginform.get('Password')?.valid &&
+                myLoginform.get('Password')?.touched
+              "
+              class="p-error p-error-message"
+            >
+              <div
+                *ngIf="myLoginform.get('Password')?.errors?.['required']"
+                class="flex mt-1"
+              >
+                <i class="pi" style="color: #fa4b1b; height: 40px; width: 40px"
+                  ><img
+                    style="height: 18px; width: 18px"
+                    src="../../assets/i.svg"
+                    alt=""
+                    srcset=""
+                /></i>
+                <p class="m-0 p-0" style="color: red">
+                  This Field is required.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div class="flex flex-row justify-content-between align-items-center">
-            <div>
+            <div class="my-3">
               <p-checkbox
                 formControlName="rememberMe"
                 styleClass="p-Check-cus"
@@ -93,14 +117,15 @@
               <label class="pl-3" for="rememberMe">Remember Me</label>
             </div>
             <div>
-              <p>Forget Password?</p>
+              <p class="hidden md:block">Forget Password?</p>
             </div>
           </div>
           <p-button
-            styleClass="w-full mt-3 background-color:#1429EF"
+            styleClass="w-full mt-3"
             type="submit"
-            label="login"
+            label="Login"
             [rounded]="true"
+            [disabled]="!this.myLoginform.valid"
           ></p-button>
         </form>
         <div
@@ -125,7 +150,7 @@
     </div>
   </div>
 
-  <div class="hidden md:block col-12 md:col-6">
+  <div class="hidden md:block col-12 md:col-6 p-0 m-0">
     <div class="login-container-2"></div>
   </div>
 </div>

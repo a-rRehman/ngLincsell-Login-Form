@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'Lincsell-login';
+  constructor(public authentication: AuthenticationService) {}
 }

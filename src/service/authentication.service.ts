@@ -10,6 +10,9 @@ export class AuthenticationService {
   private apiUrl = 'https://lsapim.azure-api.net/auth-svc/api/SignIn';
   private wlid = '94DE1528-DE42-498A-A07E-4A458E97240E';
 
+  isLoader: boolean = false;
+  loginSuccessful: boolean = false;
+
   constructor(private http: HttpClient) {}
 
   login(formData: any): Observable<any> {

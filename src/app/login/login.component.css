@@ -1,9 +1,8 @@
 .login-container-2 {
   background-image: url("../../assets/leftimg.png");
-  min-height: 100dvh;
-}
-.login-container {
-  min-height: 100dvh;
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
 }
 
 .p-input-icon-right > .p-inputtext {
@@ -11,7 +10,7 @@
 }
 
 .p-error-container {
-  height: 28px; /* Adjust height as needed */
+  height: 28px;
   overflow: hidden;
 }
 
@@ -25,4 +24,28 @@
 
 .p-error-message i {
   /* margin-right: 10px; */
+}
+
+/* Responsive styles */
+@media (max-width: 968px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .p-inputtext-lg {
+    width: 100%;
+  }
+}
+
+.main-login-container {
+  height: 100vh;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  background-color: black;
+  border-color: black;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight .p-icon {
+  color: white;
 }

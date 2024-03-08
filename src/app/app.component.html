@@ -1,3 +1,16 @@
 <div class="parent-container">
   <app-login></app-login>
 </div>
+
+<div class="loader-container flex flex-column" *ngIf="authentication.isLoader">
+  <img src="../assets/LincSell-Icon-2-2.gif" alt="Loader Image" />
+  <p class="m-0 p-0" style="color: white">Please Wait We are Loading...</p>
+</div>
+
+<div
+  class="loader-container flex flex-column"
+  *ngIf="authentication.loginSuccessful"
+>
+  <img src="../assets/tick.gif" alt="Loader Image" />
+  <p class="m-0 p-0" style="color: white">Login Successful</p>
+</div>

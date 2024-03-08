@@ -36,11 +36,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.myLoginform = new FormGroup({
-      Username: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      Password: new FormControl('', Validators.required),
+      Username: new FormControl('', [Validators.required]),
+      Password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl(false),
     });
   }
@@ -50,9 +47,12 @@ export class LoginComponent implements OnInit {
   }
   onFormSubmit() {
     if (this.myLoginform.valid) {
+      this.authService.isLoader = true;
       const formData = this.myLoginform.value;
       this.authService.login(formData).subscribe(
         (response) => {
+          this.authService.isLoader = false;
+
           // Success Handling
           console.log('Login successful:', response);
           console.log('Login successful:', response.success);
@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
             this.LoginSuccess = true;
           } else {
             this.LoginSuccess = false;
+            this.authService.loginSuccessful = true;
           }
         },
         (error) => {
