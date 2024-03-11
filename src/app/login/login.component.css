@@ -37,15 +37,33 @@
   }
 }
 
-.main-login-container {
-  height: 100vh;
+@media (min-width: 900px) {
+  .main-login-container {
+    height: 100vh;
+  }
 }
 
 :host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
   background-color: black;
   border-color: black;
+  border-radius: 2px !important;
 }
 
 :host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight .p-icon {
   color: white;
+  border-radius: 2px !important;
+}
+.p-inputtext {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 4rem;
+}
+
+@media (max-width: 480px) {
+  p {
+    font-size: 13px;
+  }
+  .logo {
+    width: 60%;
+  }
 }

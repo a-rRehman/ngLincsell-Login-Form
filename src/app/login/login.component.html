@@ -1,27 +1,35 @@
 <div class="grid flex main-login-container">
   <div
-    class="p-0 m-0 col-12 md:col-6 flex flex-column justify-content-center align-items-center"
+    class="p-0 m-0 col-12 md:col-6 flex flex-column justify-content-center md:align-items-center"
   >
     <div
-      class="login-container flex flex-column justify-content-center align-items-center"
+      class="login-container flex flex-column justify-content-center align-items-center pt-2 md:pt-5"
     >
-      <img src="../../assets/Logo-SVGOOO.svg" alt="" />
+      <img
+        src="../../assets/Logo-SVGOOO.svg"
+        alt=""
+        class="mb-0 md:mb-2 logo"
+      />
       <div
-        class="md:mt-5 mt-3 ml-2 md:ml-0 md:mr-0 mr-2 md:py-6 py-3 px-3 p md:px-5 border-solid border-1 border-200 border-round-2xl flex flex-column justify-content-center align-items-center"
+        class="text-center md:mt-5 mt-5 ml-2 md:ml-0 md:mr-0 mr-2 md:py-7 py-3 px-3 p md:px-5 border-solid border-1 border-200 border-round-2xl flex flex-column justify-content-center align-items-center"
       >
         <h2 class="p-0 m-0">Login</h2>
         <p class="p-0 m-0 pt-2 pb-5">
           Enter your credentials to access your LincSell account
         </p>
-        <form [formGroup]="myLoginform" (ngSubmit)="onFormSubmit()">
-          <div class="p-field">
-            <span class="p-input-icon-left">
-              <i class="pi" style="color: #fa4b1b"
+        <form
+          [formGroup]="myLoginform"
+          (ngSubmit)="onFormSubmit()"
+          class="w-full"
+        >
+          <div class="p-field w-full">
+            <span class="p-input-icon-left w-full">
+              <i class="pi" style="color: #fa4b1b; padding-left: 9px"
                 ><img src="../../assets/envelope.svg" alt="" srcset=""
               /></i>
 
               <input
-                class="p-inputtext-lg border-round-xl"
+                class="p-inputtext-sm md:p-inputtext-md border-round-xl w-full"
                 placeholder="Email/Username"
                 type="Username"
                 pInputText
@@ -29,19 +37,19 @@
                 formControlName="Username"
             /></span>
           </div>
-          <div class="p-error-container">
+          <div class="">
             <div
               *ngIf="
                 !myLoginform.get('Username')?.valid &&
                 myLoginform.get('Username')?.touched
               "
-              class="p-error p-error-message"
+              class="p-error"
             >
               <div
                 *ngIf="myLoginform.get('Username')?.errors?.['required']"
                 class="flex mt-1"
               >
-                <i class="pi" style="color: #fa4b1b; height: 40px; width: 40px"
+                <i class="pi" style="color: #fa4b1b; width: 40px"
                   ><img
                     style="height: 18px; width: 18px"
                     src="../../assets/i.svg"
@@ -52,15 +60,30 @@
                   This Field is required.
                 </p>
               </div>
+              <div
+                *ngIf="myLoginform.get('Username')?.errors?.['email']"
+                class="flex mt-1"
+              >
+                <i class="pi" style="color: #fa4b1b; width: 40px"
+                  ><img
+                    style="height: 18px; width: 18px"
+                    src="../../assets/i.svg"
+                    alt=""
+                    srcset=""
+                /></i>
+                <p class="m-0 p-0" style="color: red">
+                  Enter a valid email address
+                </p>
+              </div>
             </div>
           </div>
-          <div class="p-field mt-3">
-            <span class="p-input-icon-right p-input-icon-left">
-              <i class="pi" style="color: #fa4b1b"
+          <div class="p-field mt-3 w-full">
+            <span class="p-input-icon-right p-input-icon-left w-full">
+              <i class="pi" style="color: #fa4b1b; padding-left: 9px"
                 ><img src="../../assets/eO.svg" alt="" srcset="" />
               </i>
               <input
-                class="p-inputtext-lg border-round-xl"
+                class="p-inputtext-sm md:p-inputtext-md border-round-xl w-full"
                 placeholder="Password"
                 type="{{ passwordToggle ? 'text' : 'password' }}"
                 pInputText
@@ -72,14 +95,14 @@
                 style="font-size: 1.3rem; color: #a9a9a9"
                 (click)="togglePassword()"
                 [ngClass]="{
-                  'pi-eye': !passwordToggle,
-                  'pi-eye-slash': passwordToggle
+                  'pi-eye-slash': !passwordToggle,
+                  'pi-eye': passwordToggle
                 }"
               ></i>
             </span>
           </div>
 
-          <div class="p-error-container">
+          <div class="">
             <div
               *ngIf="
                 !myLoginform.get('Password')?.valid &&
@@ -91,7 +114,7 @@
                 *ngIf="myLoginform.get('Password')?.errors?.['required']"
                 class="flex mt-1"
               >
-                <i class="pi" style="color: #fa4b1b; height: 40px; width: 40px"
+                <i class="pi" style="color: #fa4b1b; width: 40px"
                   ><img
                     style="height: 18px; width: 18px"
                     src="../../assets/i.svg"
@@ -117,7 +140,12 @@
               <label class="pl-3" for="rememberMe">Remember Me</label>
             </div>
             <div>
-              <p class="hidden md:block">Forget Password?</p>
+              <p
+                class="hidden md:block"
+                style="color: #1429ef; font-family: 'Mona-Medium'"
+              >
+                Forget Password?
+              </p>
             </div>
           </div>
           <p-button
@@ -127,12 +155,18 @@
             [rounded]="true"
             [disabled]="!this.myLoginform.valid"
           ></p-button>
+          <!-- <p-button
+            styleClass="w-full mt-3"
+            type="submit"
+            label="Login"
+            [rounded]="true"
+          ></p-button> -->
         </form>
         <div
           *ngIf="LoginSuccess"
           class="flex flex-row justify-content-start mt-4"
         >
-          <i class="pi" style="color: #fa4b1b; height: 40px; width: 40px"
+          <i class="pi" style="color: #fa4b1b; width: 40px"
             ><img
               style="height: 27px; width: 27px"
               src="../../assets/i.svg"
@@ -141,9 +175,17 @@
           /></i>
           <p class="m-1 p-0" style="color: red">Incorrect email or password</p>
         </div>
-        <p>New to Lincsell? <span style="color: #1429ef">Get started</span></p>
+        <div class="mt-3">
+          <p style="color: #a9a9a9; font-family: 'Mona-Light'">
+            New to Lincsell?
+            <span style="color: #1429ef">Get started</span>
+          </p>
+        </div>
       </div>
-      <div class="flex flex-row justify-content-center mt-2">
+      <div
+        class="flex flex-row justify-content-center mt-2 md:mt-4 md:mb-2"
+        style="color: #a9a9a9"
+      >
         <p style="margin-right: 20px">Terms of Service</p>
         <p>Privacy Policy</p>
       </div>

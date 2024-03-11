@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.myLoginform = new FormGroup({
-      Username: new FormControl('', [Validators.required]),
+      Username: new FormControl('', [Validators.required, Validators.email]),
       Password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl(false),
     });
@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
     if (this.myLoginform.valid) {
       this.authService.isLoader = true;
       const formData = this.myLoginform.value;
+      console.log(this.myLoginform);
       this.authService.login(formData).subscribe(
         (response) => {
           this.authService.isLoader = false;
