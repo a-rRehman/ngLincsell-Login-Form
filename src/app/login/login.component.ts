@@ -40,6 +40,18 @@ export class LoginComponent implements OnInit {
       Password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl(false),
     });
+
+    // Check if there are saved credentials
+    const savedCredentials = JSON.parse(
+      localStorage.getItem('savedCredentials') || '{}'
+    );
+    if (savedCredentials && savedCredentials.rememberMe) {
+      this.myLoginform.patchValue({
+        Username: savedCredentials.Username,
+        Password: savedCredentials.Password,
+        rememberMe: true,
+      });
+    }
   }
   passwordToggle: boolean = false;
   togglePassword() {
@@ -50,6 +62,18 @@ export class LoginComponent implements OnInit {
       this.authService.isLoader = true;
       const formData = this.myLoginform.value;
       console.log(this.myLoginform);
+      // --Adding remeber me functionality
+      // Save credentials if "Remember Me" is checked
+      if (this.myLoginform.value.rememberMe) {
+        localStorage.setItem(
+          'savedCredentials',
+          JSON.stringify(this.myLoginform.value)
+        );
+      } else {
+        // If not checked, clear saved credentials
+        localStorage.removeItem('savedCredentials');
+      }
+      //----------------------------------
       this.authService.login(formData).subscribe(
         (response) => {
           this.authService.isLoader = false;
