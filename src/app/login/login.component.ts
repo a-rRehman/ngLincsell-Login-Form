@@ -9,6 +9,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +23,14 @@ import { FormsModule } from '@angular/forms';
     InputTextModule,
     CheckboxModule,
     FormsModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
+  invalidEmail: boolean = false;
   LoginSuccess: boolean = false;
   isChecked: boolean = false;
   myLoginform!: FormGroup;
@@ -33,7 +38,8 @@ export class LoginComponent implements OnInit {
   ForgetScreen: boolean = false;
   constructor(
     private authService: AuthenticationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private messageService: MessageService
   ) {}
 
   myLoginformForget!: FormGroup;
@@ -61,7 +67,14 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
+  showTopCenter() {
+    this.messageService.add({
+      key: 'bc',
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Email has been sent on provided email. Please check your email!',
+    });
+  }
   forgetPass() {
     this.LoginScreen = false;
     this.ForgetScreen = true;
@@ -75,6 +88,7 @@ export class LoginComponent implements OnInit {
   togglePassword() {
     this.passwordToggle = !this.passwordToggle;
   }
+
   onFormSubmit() {
     if (this.myLoginform.valid) {
       this.authService.isLoader = true;
@@ -125,6 +139,12 @@ export class LoginComponent implements OnInit {
         (response) => {
           console.log('Success Response : ', response);
           this.authService.isLoader = false;
+          if (response.data) {
+            this.invalidEmail = false;
+            this.showTopCenter();
+          } else {
+            this.invalidEmail = true;
+          }
         },
         (error) => {
           console.log('Error Response :', error);
