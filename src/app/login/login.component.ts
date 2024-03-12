@@ -29,16 +29,24 @@ export class LoginComponent implements OnInit {
   LoginSuccess: boolean = false;
   isChecked: boolean = false;
   myLoginform!: FormGroup;
+  LoginScreen: boolean = true;
+  ForgetScreen: boolean = false;
   constructor(
     private authService: AuthenticationService,
     private http: HttpClient
   ) {}
 
+  myLoginformForget!: FormGroup;
   ngOnInit(): void {
     this.myLoginform = new FormGroup({
       Username: new FormControl('', [Validators.required, Validators.email]),
       Password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl(false),
+    });
+
+    //Adding forget Password functionality
+    this.myLoginformForget = new FormGroup({
+      Username: new FormControl('', [Validators.required, Validators.email]),
     });
 
     // Check if there are saved credentials
@@ -52,6 +60,16 @@ export class LoginComponent implements OnInit {
         rememberMe: true,
       });
     }
+  }
+
+  forgetPass() {
+    this.LoginScreen = false;
+    this.ForgetScreen = true;
+  }
+
+  backLogin() {
+    this.LoginScreen = true;
+    this.ForgetScreen = false;
   }
   passwordToggle: boolean = false;
   togglePassword() {
@@ -91,6 +109,25 @@ export class LoginComponent implements OnInit {
         (error) => {
           // Error Handling
           console.error('Login failed:', error);
+        }
+      );
+    } else {
+      console.log('Form Has Validation Errors');
+    }
+  }
+
+  onFormSubmitForget() {
+    if (this.myLoginformForget.valid) {
+      this.authService.isLoader = true;
+      console.log(this.myLoginformForget);
+      const FormDataForget = this.myLoginformForget.value;
+      this.authService.forgetPassword(FormDataForget).subscribe(
+        (response) => {
+          console.log('Success Response : ', response);
+          this.authService.isLoader = false;
+        },
+        (error) => {
+          console.log('Error Response :', error);
         }
       );
     } else {

@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class AuthenticationService {
   private apiUrl = 'https://lsapim.azure-api.net/auth-svc/api/SignIn';
   private wlid = '94DE1528-DE42-498A-A07E-4A458E97240E';
-
+  private apiUrlForgetPassword =
+    'https://lsapim.azure-api.net/auth-svc/api/ForgetPassword';
   isLoader: boolean = false;
   loginSuccessful: boolean = false;
 
@@ -21,5 +22,15 @@ export class AuthenticationService {
       Wlid: this.wlid,
     });
     return this.http.post(this.apiUrl, formData, { headers });
+  }
+
+  forgetPassword(formDataForget: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Wlid: this.wlid,
+    });
+    return this.http.post(this.apiUrlForgetPassword, formDataForget, {
+      headers,
+    });
   }
 }

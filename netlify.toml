@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://lsapim.azure-api.net/auth-svc/api/SignIn/:splat"
+  status = 200

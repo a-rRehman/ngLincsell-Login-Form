@@ -49,17 +49,22 @@
 :host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
   background-color: black;
   border-color: black;
-  border-radius: 2px !important;
+  border-radius: 3px !important;
 }
 
 :host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight .p-icon {
   color: white;
-  border-radius: 2px !important;
 }
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  border: 2px solid #d1d5db;
+  border-radius: 3px;
+}
+
 .p-inputtext {
   padding-top: 1rem;
   padding-bottom: 1rem;
-  padding-left: 4rem;
+  padding-left: 3.5rem;
 }
 
 @media (max-width: 480px) {
