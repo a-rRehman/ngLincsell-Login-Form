@@ -37,3 +37,6 @@ input {
 h2 {
   font-family: "Mona-Bold", sans-serif;
 }
+a {
+  text-decoration: none;
+}
