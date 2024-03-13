@@ -11,6 +11,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { CustomValidators } from '../Validators/noSpaceAllowded.validator';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,15 @@ export class LoginComponent implements OnInit {
   myLoginformForget!: FormGroup;
   ngOnInit(): void {
     this.myLoginform = new FormGroup({
-      Username: new FormControl('', [Validators.required, Validators.email]),
+      Username: new FormControl(
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          CustomValidators.noSpaceAllowded,
+        ],
+        CustomValidators.checkingUserName
+      ),
       Password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl(false),
     });
@@ -90,44 +99,44 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmit() {
-    if (this.myLoginform.valid) {
-      this.authService.isLoader = true;
-      const formData = this.myLoginform.value;
-      console.log(this.myLoginform);
-      // --Adding remeber me functionality
-      // Save credentials if "Remember Me" is checked
-      if (this.myLoginform.value.rememberMe) {
-        localStorage.setItem(
-          'savedCredentials',
-          JSON.stringify(this.myLoginform.value)
-        );
-      } else {
-        // If not checked, clear saved credentials
-        localStorage.removeItem('savedCredentials');
-      }
-      //----------------------------------
-      this.authService.login(formData).subscribe(
-        (response) => {
-          this.authService.isLoader = false;
-
-          // Success Handling
-          console.log('Login successful:', response);
-          console.log('Login successful:', response.success);
-          if (response.data.error) {
-            this.LoginSuccess = true;
-          } else {
-            this.LoginSuccess = false;
-            this.authService.loginSuccessful = true;
-          }
-        },
-        (error) => {
-          // Error Handling
-          console.error('Login failed:', error);
-        }
+    // if (this.myLoginform.valid) {
+    this.authService.isLoader = true;
+    const formData = this.myLoginform.value;
+    console.log(this.myLoginform);
+    // --Adding remeber me functionality
+    // Save credentials if "Remember Me" is checked
+    if (this.myLoginform.value.rememberMe) {
+      localStorage.setItem(
+        'savedCredentials',
+        JSON.stringify(this.myLoginform.value)
       );
     } else {
-      console.log('Form Has Validation Errors');
+      // If not checked, clear saved credentials
+      localStorage.removeItem('savedCredentials');
     }
+    //----------------------------------
+    this.authService.login(formData).subscribe(
+      (response) => {
+        this.authService.isLoader = false;
+
+        // Success Handling
+        console.log('Login successful:', response);
+        console.log('Login successful:', response.success);
+        if (response.data.error) {
+          this.LoginSuccess = true;
+        } else {
+          this.LoginSuccess = false;
+          this.authService.loginSuccessful = true;
+        }
+      },
+      (error) => {
+        // Error Handling
+        console.error('Login failed:', error);
+      }
+    );
+    // } else {
+    //   console.log('Form Has Validation Errors');
+    // }
   }
 
   onFormSubmitForget() {
